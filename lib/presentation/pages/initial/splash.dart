@@ -40,11 +40,13 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Image.asset(
-      "assets/splash.png",
-      height: double.infinity,
-      width: double.infinity,
-      fit: BoxFit.cover,
-    );
+    print("splash");
+    return const Placeholder();
+    // return Image.asset(
+    //   "assets/splash.png",
+    //   height: double.infinity,
+    //   width: double.infinity,
+    //   fit: BoxFit.cover,
+    // );
   }
 }

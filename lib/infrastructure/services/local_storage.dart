@@ -43,8 +43,6 @@ abstract class LocalStore {
   }
 
 
-
-
   //------------------ - ALLClear - ---------------//
   static storeClear() async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
