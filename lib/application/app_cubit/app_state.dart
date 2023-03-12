@@ -1,11 +1,14 @@
 part of 'app_cubit.dart';
 
- class AppState {
+class AppState {
   int page;
-  AppState({this.page = 1});
+  bool isChangeTheme;
 
-  AppState copyWith({int? page}){
-   return AppState(page: page ?? this.page);
+  AppState({this.page = 1, this.isChangeTheme = false});
+
+  AppState copyWith({int? page, bool? isChangeTheme}) {
+    return AppState(
+        page: page ?? this.page,
+        isChangeTheme: isChangeTheme ?? this.isChangeTheme);
   }
- }
-
+}

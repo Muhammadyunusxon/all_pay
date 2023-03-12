@@ -44,12 +44,18 @@ dependencies:
   sms_autofill: ^2.2.0
   pull_to_refresh: ^2.0.0
   proste_indexed_stack: ^0.2.4
+  intl: ^0.17.0
 
 
   #  Firebase
   firebase_core: ^2.4.1
   cloud_firestore: ^4.3.1
   firebase_dynamic_links: ^5.0.11
+  firebase_auth: ^4.2.10
+
+#  Auth
+  google_sign_in: ^5.4.3
+  flutter_login_facebook: ^1.6.2
 
   #  Internet
   http: ^0.13.5

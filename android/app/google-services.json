@@ -14,7 +14,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "261924210493-60uroa5a4v8lc1un2r6vibj41qdhaerv.apps.googleusercontent.com",
+          "client_id": "261924210493-dpvu55mbqg9d69dku2rl5upd0mmccs04.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "uz.demos.all_pay",
+            "certificate_hash": "0b122f8ec927ee7b496bf6aae98ce87bd6ca87db"
+          }
+        },
+        {
+          "client_id": "261924210493-s2ml3ktssqi844ccoj1niisbs5cg0bq4.apps.googleusercontent.com",
           "client_type": 3
         }
       ],

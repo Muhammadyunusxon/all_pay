@@ -1,7 +1,8 @@
 import 'package:all_pay/application/app_cubit/app_cubit.dart';
 import 'package:all_pay/application/auth_cubit/auth_cubit.dart';
 import 'package:all_pay/presentation/pages/auth/auth_page.dart';
-import 'package:all_pay/presentation/pages/initial/no_connection.dart';
+import 'package:all_pay/presentation/pages/auth/sign_in_page.dart';
+import 'package:all_pay/presentation/pages/auth/sign_up_page.dart';
 import 'package:all_pay/presentation/pages/initial/onboarding_page.dart';
 import 'package:all_pay/presentation/pages/main/main_page.dart';
 import 'package:flutter/material.dart';
@@ -26,4 +27,12 @@ abstract class Routes {
             create: (BuildContext context) => AuthCubit(),
             child: const AuthPage()));
   }
+
+  static PageRoute goSignUp() {
+    return MaterialPageRoute(builder: (_) => const SignUpPage());
+  }
+  static PageRoute goSignIn() {
+    return MaterialPageRoute(builder: (_) => const SignInPage());
+  }
+
 }

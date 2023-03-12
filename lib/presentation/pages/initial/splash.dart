@@ -15,12 +15,15 @@ class SplashPage extends StatefulWidget {
 class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
-    checking();
+    // checking();
     super.initState();
   }
 
   checking() async {
-    if (await LocalStore.getOnBoarding() ?? true) {
+    print(await LocalStore.getDocId());
+    print(await LocalStore.getOnBoarding());
+
+    if (await LocalStore.getOnBoarding()) {
       FlutterNativeSplash.remove();
       // ignore: use_build_context_synchronously
       Navigator.push(context, Routes.goOnBoarding());
