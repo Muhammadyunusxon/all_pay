@@ -18,7 +18,7 @@ class MyAppBar extends StatelessWidget {
           ),
           onPressed: () => Navigator.pop(context),
         ),
-        32.horizontalSpace,
+        24.w.horizontalSpace,
         Text(
           title,
           style:

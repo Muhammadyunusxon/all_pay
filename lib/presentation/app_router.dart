@@ -4,17 +4,21 @@ import 'package:all_pay/application/card_cubit/card_cubit.dart';
 import 'package:all_pay/application/home_cubit/home_cubit.dart';
 import 'package:all_pay/infrastructure/models/card_model.dart';
 import 'package:all_pay/presentation/pages/auth/auth_page.dart';
-import 'package:all_pay/presentation/pages/auth/sign_in_page.dart';
-import 'package:all_pay/presentation/pages/auth/sign_up_page.dart';
-import 'package:all_pay/presentation/pages/home/add_card_page.dart';
-import 'package:all_pay/presentation/pages/home/cards_page.dart';
+import 'package:all_pay/presentation/pages/cards/add_card_page.dart';
+import 'package:all_pay/presentation/pages/cards/cards_page.dart';
 import 'package:all_pay/presentation/pages/initial/onboarding_page.dart';
+import 'package:all_pay/presentation/pages/initial/splash.dart';
 import 'package:all_pay/presentation/pages/main/main_page.dart';
+import 'package:all_pay/presentation/pages/payment/payment_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 abstract class Routes {
   Routes._();
+
+  static PageRoute goSplash() {
+    return MaterialPageRoute(builder: (_) => const SplashPage());
+  }
 
   static PageRoute goOnBoarding() {
     return MaterialPageRoute(
@@ -39,14 +43,6 @@ abstract class Routes {
             child: const AuthPage()));
   }
 
-  static PageRoute goSignUp() {
-    return MaterialPageRoute(builder: (_) => const SignUpPage());
-  }
-
-  static PageRoute goSignIn() {
-    return MaterialPageRoute(builder: (_) => const SignInPage());
-  }
-
   static PageRoute goCards(BuildContext context) {
     return MaterialPageRoute(
         builder: (_) => BlocProvider.value(
@@ -64,5 +60,12 @@ abstract class Routes {
         child: AddCardPage(isUpdate: isUpdate, onSummit: onSummit),
       ),
     );
+  }
+
+  static PageRoute goPayment(BuildContext context) {
+    return MaterialPageRoute(
+        builder: (_) => BlocProvider.value(
+            value: BlocProvider.of<HomeCubit>(context),
+            child: const PaymentPage()));
   }
 }

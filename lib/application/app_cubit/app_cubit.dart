@@ -11,15 +11,19 @@ class AppCubit extends Cubit<AppState> {
   getTheme() async =>
       emit(state.copyWith(isChangeTheme: await LocalStore.getTheme()));
 
-  Future<void> change() async =>
-      emit(state.copyWith(isChangeTheme: !state.isChangeTheme));
+
+  Future<void> change() async {
+    emit(state.copyWith(isChangeTheme: !state.isChangeTheme));
+    LocalStore.setTheme(state.isChangeTheme);
+
+  }
 
   changePageIndex({required VoidCallback onPushed}) {
     state.page != 3 ? emit(state.copyWith(page: state.page + 1)) : onPushed();
   }
+
   changePage(int select) {
     emit(state.copyWith(selected: select));
   }
-
 
 }

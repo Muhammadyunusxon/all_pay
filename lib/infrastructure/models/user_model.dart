@@ -9,6 +9,7 @@ class UserModel {
   final String? gender;
   final String? phone;
   final String? favourite;
+  final String? fcmToken;
 
   UserModel(
       {required this.name,
@@ -20,7 +21,7 @@ class UserModel {
       required this.email,
       required this.gender,
       required this.phone,
-      required this.favourite});
+      required this.favourite,required this.fcmToken});
 
   factory UserModel.fromJson(Map<String, dynamic>? data) {
     return UserModel(
@@ -33,7 +34,7 @@ class UserModel {
       email: data?["email"],
       gender: data?["gender"],
       phone: data?["phone"],
-      favourite: data?["favourite"],
+      favourite: data?["favourite"], fcmToken: data?["fcmToken"],
     );
   }
 
@@ -48,7 +49,8 @@ class UserModel {
       "email": email,
       "gender": gender,
       "phone": phone,
-      "favourite": favourite
+      "favourite": favourite,
+      "fcmToken": fcmToken
     };
   }
 }

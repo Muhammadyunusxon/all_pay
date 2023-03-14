@@ -1,6 +1,6 @@
 import 'package:all_pay/infrastructure/services/app_helper.dart';
-import 'package:all_pay/presentation/pages/home/widget/card_item.dart';
-import 'package:all_pay/presentation/pages/home/widget/my_app_bar.dart';
+import 'package:all_pay/presentation/pages/cards/widget/card_item.dart';
+import 'package:all_pay/presentation/utils/my_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -22,6 +22,7 @@ class _CardsPageState extends State<CardsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).primaryColor,
       body: SafeArea(
         child: SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -31,7 +32,7 @@ class _CardsPageState extends State<CardsPage> {
               32.verticalSpace,
               BlocBuilder<HomeCubit, HomeState>(
                 builder: (context, state) {
-                  return state.cards?.length == 0
+                  return state.cards?.isEmpty ?? false
                       ? Lottie.network(
                           "https://assets7.lottiefiles.com/packages/lf20_NeuXI2OPLG.json")
                       : ListView.builder(
@@ -57,11 +58,15 @@ class _CardsPageState extends State<CardsPage> {
                                                       .updateCard(card);
                                                 }));
                                       },
-                                      onDelete: () {
-                                        context.read<HomeCubit>().removeCard(
-                                            docId:
-                                                state.cards?[index].docId ?? "",
-                                            index: index);
+                                      onDelete: () async {
+                                        Navigator.pop(context);
+                                        AppHelpers.showConfirm(context, () {
+                                          context.read<HomeCubit>().removeCard(
+                                              docId:
+                                                  state.cards?[index].docId ??
+                                                      "",
+                                              index: index);
+                                        });
                                       });
                                 },
                                 child: CardItem(

@@ -1,7 +1,7 @@
-import 'package:all_pay/presentation/pages/home/widget/card_item.dart';
-import 'package:all_pay/presentation/pages/home/widget/card_utils.dart';
-import 'package:all_pay/presentation/pages/home/widget/change_card_theme.dart';
-import 'package:all_pay/presentation/pages/home/widget/my_app_bar.dart';
+import 'package:all_pay/presentation/pages/cards/widget/card_item.dart';
+import 'package:all_pay/presentation/pages/cards/widget/card_utils.dart';
+import 'package:all_pay/presentation/pages/cards/widget/change_card_theme.dart';
+import 'package:all_pay/presentation/utils/my_app_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -53,6 +53,7 @@ class AddCardPageState extends State<AddCardPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).primaryColor,
       body: SafeArea(
         child: Form(
           key: formKey,
@@ -62,9 +63,7 @@ class AddCardPageState extends State<AddCardPage> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                   MyAppBar(
-                    title: widget.isUpdate? "Update Card": "Add Card",
-                  ),
+                  MyAppBar(title: widget.isUpdate ? "Update Card" : "Add Card"),
                   BlocBuilder<CardCubit, CardState>(
                     buildWhen: (p, s) => p.card != s.card,
                     builder: (context, state) {
@@ -151,7 +150,7 @@ class AddCardPageState extends State<AddCardPage> {
                       builder: (context, state) {
                         return MyButton(
                           isLoading: state.isLoading,
-                          text: widget.isUpdate? "Update": "Add",
+                          text: widget.isUpdate ? "Update" : "Add",
                           onTap: () {
                             if (formKey.currentState?.validate() ?? false) {
                               context.read<CardCubit>().createCard(

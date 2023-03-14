@@ -51,4 +51,46 @@ abstract class AppHelpers {
           );
         });
   }
+
+
+  static showConfirm(BuildContext context,VoidCallback  onSummit){
+    return  showDialog(
+        context: context,
+        builder: (_) => AlertDialog(
+      title: Text('Confirm',style: Theme.of(context).textTheme.displayMedium?.copyWith(fontSize: 20),),
+      content: Text(
+        'Would you like to remove?',
+        style: Theme.of(context)
+            .textTheme
+            .displaySmall?.copyWith(fontSize: 18),
+      ),
+      actions: [
+        TextButton(
+            onPressed: () {
+              Navigator.pop(
+                  context);
+            },
+            child: Text(
+              'No',
+              style: Theme.of(
+                  context)
+                  .textTheme
+                  .displayMedium,
+            )),
+        TextButton(
+            onPressed: () {
+              Navigator.pop(
+                  context);
+            },
+            child: Text(
+              'Yes',
+              style: Theme.of(
+                  context)
+                  .textTheme
+                  .displayMedium,
+            )),
+      ],
+    ),
+    );
+  }
 }

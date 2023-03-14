@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_login_facebook/flutter_login_facebook.dart';
@@ -41,7 +42,8 @@ class AuthCubit extends Cubit<AuthState> {
                     phone: userObj.user?.phoneNumber ?? "",
                     birth: "",
                     avatar: userObj.user?.photoURL ?? "",
-                    favourite: '')
+                    favourite: '',
+                    fcmToken: await getToken())
                 .toJson())
             .then((value) async {
           await LocalStore.setDocId(value.id);
@@ -91,7 +93,8 @@ class AuthCubit extends Cubit<AuthState> {
                     phone: userObj.user?.phoneNumber ?? "",
                     birth: "",
                     avatar: userObj.user?.photoURL ?? "",
-                    favourite: '')
+                    favourite: '',
+                    fcmToken: await getToken())
                 .toJson())
             .then((value) async {
           await LocalStore.setDocId(value.id);
@@ -112,5 +115,14 @@ class AuthCubit extends Cubit<AuthState> {
     }
 
     emit(state.copyWith(isFacebookLoading: false));
+  }
+
+  Future<String?> getToken() async {
+    await FirebaseMessaging.instance.requestPermission(
+      alert: true,
+      sound: true,
+    );
+    String? fcmToken = await FirebaseMessaging.instance.getToken();
+    return fcmToken;
   }
 }

@@ -1,9 +1,12 @@
+import 'package:all_pay/infrastructure/services/local_storage.dart';
+import 'package:all_pay/presentation/pages/home/widgets/home_buttons.dart';
 import 'package:all_pay/presentation/utils/my_image_network.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:intl/intl.dart';
 
+import '../../../application/app_cubit/app_cubit.dart';
 import '../../../application/home_cubit/home_cubit.dart';
 import '../../app_router.dart';
 import '../../style/style.dart';
@@ -66,90 +69,106 @@ class _HomePageState extends State<HomePage> {
               ),
               // const Spacer(),
               IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    LocalStore.removeDocId();
+                    Navigator.pushAndRemoveUntil(
+                        context, Routes.goSplash(), (route) => false);
+                  },
                   icon: Icon(
-                    Icons.notifications,
+                    Icons.exit_to_app,
                     color: Theme.of(context).secondaryHeaderColor,
-                  ))
+                  )),
+              BlocBuilder<AppCubit, AppState>(
+                builder: (context, state) {
+                  return IconButton(
+                      onPressed: () {
+                        context.read<AppCubit>().change();
+                      },
+                      icon: Icon(
+                        state.isChangeTheme? Icons.sunny :Icons.nightlight,
+                        color: Theme.of(context).secondaryHeaderColor,
+                      ));
+                },
+              ),
             ],
           ),
           24.h.verticalSpace,
-          Container(
-            padding: EdgeInsets.all(32.r),
-            decoration: BoxDecoration(
-                gradient: Style.blueGradiant,
-                borderRadius: BorderRadius.circular(32.r),
-                boxShadow: [
-                  BoxShadow(
-                      offset: const Offset(4, 8),
-                      blurRadius: 24,
-                      color: Style.infoColor.withOpacity(0.25))
-                ]),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
+          BlocBuilder<HomeCubit, HomeState>(
+            builder: (context, state) {
+              return Container(
+                padding: EdgeInsets.all(32.r),
+                decoration: BoxDecoration(
+                    gradient: Style.blueGradiant,
+                    borderRadius: BorderRadius.circular(32.r),
+                    boxShadow: [
+                      BoxShadow(
+                          offset: const Offset(4, 8),
+                          blurRadius: 24,
+                          color: Style.infoColor.withOpacity(0.25))
+                    ]),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            state.user?.name ?? "",
+                            style: Style.textStyleSemiBold(size: 18),
+                          ),
+                        )
+                      ],
+                    ),
+                    24.h.verticalSpace,
                     Text(
-                      "Andrew Ainsley",
-                      style: Style.textStyleSemiBold(size: 18),
-                    )
+                      "Your balance",
+                      style: Style.textStyleCustom(size: 14),
+                    ),
+                    8.h.verticalSpace,
+                    Text(
+                      NumberFormat.currency(name: '\$', decimalDigits: 0)
+                          .format(state.allMoney),
+                      style: Style.textStyleSemiBold(size: 24),
+                    ),
+                    24.h.verticalSpace,
+                    Container(
+                      padding: const EdgeInsets.symmetric(
+                          vertical: 12, horizontal: 8),
+                      decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20.r),
+                          color: Theme.of(context).primaryColor),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                        children: [
+                          HomeButtons(
+                            icon: Icons.credit_card,
+                            title: 'Cards',
+                            onTap: () {
+                              Navigator.push(context, Routes.goCards(context));
+                            },
+                          ),
+                          HomeButtons(
+                            icon: Icons.sync_alt,
+                            title: 'Payment',
+                            onTap: () {
+                              Navigator.push(
+                                  context, Routes.goPayment(context));
+                            },
+                          ),
+                          HomeButtons(
+                            icon: Icons.stacked_line_chart,
+                            title: 'Statistic',
+                            onTap: () {
+                              Navigator.push(context, Routes.goCards(context));
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
-                24.h.verticalSpace,
-                Text(
-                  "Your balance",
-                  style: Style.textStyleCustom(size: 14),
-                ),
-                8.h.verticalSpace,
-                Text(
-                  NumberFormat.currency(name: '\$', decimalDigits: 0)
-                      .format(123456),
-                  style: Style.textStyleSemiBold(size: 24),
-                ),
-                24.h.verticalSpace,
-                Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20.r),
-                      color: Theme.of(context).primaryColor),
-                  child: Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () {
-                          Navigator.push(context, Routes.goCards(context));
-                        },
-                        child: Container(
-                          padding: EdgeInsets.symmetric(horizontal: 12.w),
-                          child: Column(
-                            children: [
-                              Container(
-                                padding: EdgeInsets.all(16.r),
-                                decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  color: Theme.of(context).hoverColor,
-                                ),
-                                child: const Icon(
-                                  Icons.credit_card_rounded,
-                                  color: Style.primaryColor,
-                                ),
-                              ),
-                              8.h.verticalSpace,
-                              Text(
-                                "Cards",
-                                style: Style.textStyleSemiBold(
-                                    textColor: Style.primaryColor),
-                              ),
-                            ],
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ),
-              ],
-            ),
+              );
+            },
           )
         ],
       ),

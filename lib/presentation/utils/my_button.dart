@@ -28,8 +28,8 @@ class MyButton extends StatelessWidget {
         child: Center(
             child: isLoading
                 ? SizedBox(
-                    height: 50,
-                    width: 50,
+                    height: 24,
+                    width: 24,
                     child: CircularProgressIndicator(
                       color: Theme.of(context).primaryColor,
                     ),

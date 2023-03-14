@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 class MyFormField extends StatelessWidget {
   final TextEditingController controller;
@@ -7,15 +8,16 @@ class MyFormField extends StatelessWidget {
   final TextInputType inputType;
   final ValueChanged onChange;
   final FormFieldValidator<String>? validator;
+  final List<TextInputFormatter>? inputFormatters;
 
   const MyFormField({
     Key? key,
     required this.controller,
     required this.title,
-    required this.textInputAction,
+     this.textInputAction= TextInputAction.done,
     this.inputType = TextInputType.text,
     required this.onChange,
-    this.validator,
+    this.validator, this.inputFormatters,
   }) : super(key: key);
 
   @override
@@ -27,10 +29,14 @@ class MyFormField extends StatelessWidget {
         children: [
           Padding(
             padding: const EdgeInsets.only(left: 12),
-            child: Text(title),
+            child: Text(
+              title,
+              style: Theme.of(context).textTheme.displaySmall,
+            ),
           ),
           const SizedBox(height: 7),
           TextFormField(
+            inputFormatters: inputFormatters,
             validator: validator,
             style: Theme.of(context).textTheme.displaySmall,
             keyboardType: inputType,
@@ -39,8 +45,8 @@ class MyFormField extends StatelessWidget {
             controller: controller,
             decoration: InputDecoration(
               hintText: title,
-              hintStyle:
-                  Theme.of(context).textTheme.bodySmall?.copyWith(fontSize: 14),
+              hintStyle: Theme.of(context).textTheme.displaySmall?.copyWith(
+                  fontSize: 14, color: Theme.of(context).secondaryHeaderColor.withOpacity(0.5)),
               contentPadding:
                   const EdgeInsets.symmetric(horizontal: 18, vertical: 16),
               border: OutlineInputBorder(
