@@ -1,7 +1,6 @@
 import 'package:all_pay/application/auth_cubit/auth_cubit.dart';
 import 'package:all_pay/presentation/app_router.dart';
 import 'package:all_pay/presentation/pages/auth/widgets/social_button.dart';
-import 'package:all_pay/presentation/utils/my_button.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -12,34 +11,34 @@ class AuthPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme
-          .of(context)
-          .primaryColor,
+      backgroundColor: Theme.of(context).primaryColor,
       body: SafeArea(
-        child: SingleChildScrollView(
+        child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 24.w),
           child: Column(
             children: [
-              105.h.verticalSpace,
+              const Spacer(flex: 2),
               Text(
                 "Let’s you in",
-                style: Theme
-                    .of(context)
+                style: Theme.of(context)
                     .textTheme
                     .displayMedium
                     ?.copyWith(fontSize: 46.sp),
               ),
+              const Spacer(flex: 2),
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 32.w),
-                child: Image.asset("assets/images/auth.png"),
+                child: SizedBox(
+                    height: 315.h,
+                    child: Image.asset("assets/images/auth.png")),
               ),
+              const Spacer(flex: 2),
               BlocBuilder<AuthCubit, AuthState>(
-                buildWhen: (s,v)=> s.isFacebookLoading !=v.isFacebookLoading,
+                buildWhen: (p, s) => p.isFacebookLoading != s.isFacebookLoading,
                 builder: (context, state) {
                   return SocialButton(
                       isLoading: state.isFacebookLoading,
                       onTap: () {
-                        print("object");
                         context.read<AuthCubit>().loginFacebook(() {
                           Navigator.pushAndRemoveUntil(
                               context, Routes.goMain(), (route) => false);
@@ -48,9 +47,9 @@ class AuthPage extends StatelessWidget {
                       title: "Facebook");
                 },
               ),
-              18.h.verticalSpace,
+              const Spacer(),
               BlocBuilder<AuthCubit, AuthState>(
-                buildWhen: (s,v)=> s.isGoogleLoading !=v.isGoogleLoading,
+                buildWhen: (p, s) => p.isGoogleLoading != s.isGoogleLoading,
                 builder: (context, state) {
                   return SocialButton(
                       isLoading: state.isGoogleLoading,
@@ -63,50 +62,7 @@ class AuthPage extends StatelessWidget {
                       title: "Google");
                 },
               ),
-              32.h.verticalSpace,
-              Row(
-                children: [
-                  Expanded(
-                      child: Divider(
-                        color: Theme
-                            .of(context)
-                            .cardColor,
-                      )),
-                  Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 16.w),
-                      child: Text(
-                        "or",
-                        style: Theme
-                            .of(context)
-                            .textTheme
-                            .displaySmall,
-                      )),
-                  Expanded(
-                      child: Divider(
-                        color: Theme
-                            .of(context)
-                            .cardColor,
-                      )),
-                ],
-              ),
-              20.h.verticalSpace,
-              MyButton(
-                  text: "Sign in with password",
-                  onTap: () {
-                    Navigator.push(context, Routes.goSignIn());
-                  }),
-              12.h.verticalSpace,
-              TextButton(
-                  onPressed: () {
-                    Navigator.push(context, Routes.goSignUp());
-                  },
-                  child: Text(
-                    "Don’t have an account? Sign up",
-                    style: Theme
-                        .of(context)
-                        .textTheme
-                        .titleMedium,
-                  ))
+              const Spacer(flex: 5),
             ],
           ),
         ),

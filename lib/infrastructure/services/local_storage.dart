@@ -18,7 +18,7 @@ abstract class LocalStore {
   //------------------ - DocID - ---------------//
   static setDocId(String id) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
-    // sharedPreferences.setString("id", id);
+    sharedPreferences.setString("id", id);
   }
 
   static Future<String?> getDocId() async {

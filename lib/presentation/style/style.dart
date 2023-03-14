@@ -39,6 +39,7 @@ abstract class Style {
   static const indigoColor = Color(0xff3F51B5);
   static const blueColor = Color(0xff2196F3);
   static const greyColor = Color(0xff878787);
+  static const transparent = Colors.transparent;
 
   //Gradients
   static LinearGradient blueGradiant = const LinearGradient(
@@ -77,7 +78,7 @@ abstract class Style {
 
   static textStyleNormal(
       {double size = 16,
-      Color textColor = greyscale900Color,
+      Color textColor = whiteColor,
       bool isActive = false}) {
     return GoogleFonts.urbanist(
       fontSize: size,
@@ -88,7 +89,7 @@ abstract class Style {
   }
 
   static textStyleSemiBold(
-      {double size = 16, Color textColor = greyscale900Color}) {
+      {double size = 16, Color textColor = whiteColor}) {
     return GoogleFonts.urbanist(
       fontSize: size,
       color: textColor,
@@ -108,7 +109,7 @@ abstract class Style {
   }
 
   static textStyleRegular(
-      {double size = 16, Color textColor = greyscale900Color}) {
+      {double size = 16, Color textColor = whiteColor}) {
     return GoogleFonts.urbanist(
       fontSize: size,
       color: textColor,
@@ -119,7 +120,7 @@ abstract class Style {
 
   static textStyleCustom(
       {double size = 16,
-      Color textColor = greyscale900Color,
+      Color textColor = whiteColor,
       FontWeight fontWeight = FontWeight.w500}) {
     return GoogleFonts.urbanist(
       fontSize: size,

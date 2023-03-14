@@ -1,4 +1,3 @@
-import 'package:all_pay/infrastructure/services/local_storage.dart';
 import 'package:all_pay/presentation/pages/initial/no_connection.dart';
 import 'package:all_pay/presentation/pages/initial/splash.dart';
 import 'package:all_pay/presentation/style/theme.dart';
@@ -34,7 +33,7 @@ class AppWidget extends StatefulWidget {
 class _AppWidgetState extends State<AppWidget> {
   @override
   void initState() {
- // LocalStore.removeDocId();
+    // LocalStore.removeDocId();
     super.initState();
   }
 
@@ -56,10 +55,8 @@ class _AppWidgetState extends State<AppWidget> {
               home: StreamBuilder(
                   stream: Connectivity().onConnectivityChanged,
                   builder: (context, data) {
-             
                     if (data.data == ConnectivityResult.mobile ||
                         data.data == ConnectivityResult.wifi) {
-
                       return const SplashPage();
                     } else {
                       return const NoConnectionPage();

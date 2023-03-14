@@ -15,16 +15,13 @@ class SplashPage extends StatefulWidget {
 class _SplashPageState extends State<SplashPage> {
   @override
   void initState() {
-    // checking();
+    FlutterNativeSplash.remove();
+    checking();
     super.initState();
   }
 
   checking() async {
-    print(await LocalStore.getDocId());
-    print(await LocalStore.getOnBoarding());
-
     if (await LocalStore.getOnBoarding()) {
-      FlutterNativeSplash.remove();
       // ignore: use_build_context_synchronously
       Navigator.push(context, Routes.goOnBoarding());
     } else {
@@ -33,20 +30,18 @@ class _SplashPageState extends State<SplashPage> {
         Navigator.push(context, Routes.goMain());
       } else {
         // ignore: use_build_context_synchronously
-        Navigator.push(context, Routes.goOnBoarding());
+        Navigator.push(context, Routes.goAuth());
       }
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    print("splash");
-    return const Placeholder();
-    // return Image.asset(
-    //   "assets/splash.png",
-    //   height: double.infinity,
-    //   width: double.infinity,
-    //   fit: BoxFit.cover,
-    // );
+    return Image.asset(
+      "assets/splash.png",
+      height: double.infinity,
+      width: double.infinity,
+      fit: BoxFit.cover,
+    );
   }
 }

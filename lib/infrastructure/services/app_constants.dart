@@ -1,0 +1,1 @@
+const kHeightPadding=24.0;

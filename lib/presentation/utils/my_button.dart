@@ -7,8 +7,13 @@ import '../style/style.dart';
 class MyButton extends StatelessWidget {
   final String text;
   final VoidCallback onTap;
+  final bool isLoading;
 
-  const MyButton({Key? key, required this.text, required this.onTap})
+  const MyButton(
+      {Key? key,
+      required this.text,
+      required this.onTap,
+      this.isLoading = false})
       : super(key: key);
 
   @override
@@ -21,10 +26,21 @@ class MyButton extends StatelessWidget {
             borderRadius: BorderRadius.circular(33.r),
             gradient: Style.blueGradiant),
         child: Center(
-            child: Text(
-          text,
-          style: Theme.of(context).textTheme.displayMedium?.copyWith(color: Style.whiteColor),
-        )),
+            child: isLoading
+                ? SizedBox(
+                    height: 50,
+                    width: 50,
+                    child: CircularProgressIndicator(
+                      color: Theme.of(context).primaryColor,
+                    ),
+                  )
+                : Text(
+                    text,
+                    style: Theme.of(context)
+                        .textTheme
+                        .displayMedium
+                        ?.copyWith(color: Style.whiteColor),
+                  )),
       ),
     );
   }

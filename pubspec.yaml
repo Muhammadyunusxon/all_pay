@@ -45,6 +45,11 @@ dependencies:
   pull_to_refresh: ^2.0.0
   proste_indexed_stack: ^0.2.4
   intl: ^0.17.0
+  cached_network_image: ^3.2.3
+  flutter_masked_text2: ^0.9.1
+  lottie: ^2.2.0
+  top_snackbar_flutter: ^3.0.0+1
+
 
 
   #  Firebase
@@ -88,6 +93,7 @@ flutter:
   assets:
    - assets/
    - assets/images/
+   - assets/background/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/assets-and-images/#resolution-aware

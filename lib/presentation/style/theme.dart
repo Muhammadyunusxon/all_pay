@@ -9,7 +9,8 @@ abstract class ThemeStyle {
       primaryColor: Style.whiteColor,
       cardColor: Style.greyscale300Color,
       hintColor: Style.whiteColor,
-      secondaryHeaderColor: Style.greyscale900Color,
+      hoverColor: Style.primaryColor.withOpacity(0.1),
+      secondaryHeaderColor: Style.greyscale800Color,
       textTheme: TextTheme(
         displayLarge: Style.textStyleBold(textColor: Style.greyscale900Color),
         displayMedium:
@@ -25,6 +26,8 @@ abstract class ThemeStyle {
       primaryColor: Style.dark1Color,
       cardColor: Style.dark3Color,
       hintColor: Style.dark2Color,
+      hoverColor: Style.dark3Color,
+      secondaryHeaderColor: Style.whiteColor,
       textTheme: TextTheme(
         displayLarge: Style.textStyleBold(textColor: Style.whiteColor),
         displayMedium: Style.textStyleSemiBold(textColor: Style.whiteColor),

@@ -43,7 +43,7 @@ class SocialButton extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .displayMedium
-                  ?.copyWith(fontWeight: FontWeight.w500),
+                  ?.copyWith(fontWeight: FontWeight.w500,fontSize: 19.5.sp),
             )
           ],
         ),

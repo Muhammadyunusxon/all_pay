@@ -17,4 +17,9 @@ class AppCubit extends Cubit<AppState> {
   changePageIndex({required VoidCallback onPushed}) {
     state.page != 3 ? emit(state.copyWith(page: state.page + 1)) : onPushed();
   }
+  changePage(int select) {
+    emit(state.copyWith(selected: select));
+  }
+
+
 }
