@@ -76,6 +76,7 @@ class HomeCubit extends Cubit<HomeState> {
         .collection("cards")
         .doc(state.cards?[index].docId)
         .update(state.cards![index].toJson());
+
     emit(state.copyWith(cards: state.cards, changeCardIndex: index));
     onSave();
   }
@@ -101,11 +102,10 @@ class HomeCubit extends Cubit<HomeState> {
     emit(state.copyWith(cards: state.cards));
   }
 
-  removeCard({required String docId, required int index}) async {
-    emit(state.copyWith(
-        allMoney: state.allMoney + (state.cards?[index].moneyAmount ?? 0)));
-    await firestore.collection("cards").doc(docId).delete();
-    state.cards?.removeAt(index);
+  removeCard({required CardModel card}) async {
+    emit(state.copyWith(allMoney: state.allMoney - (card.moneyAmount ?? 0)));
+    await firestore.collection("cards").doc(card.docId).delete();
+    state.cards?.remove(card);
     emit(state.copyWith(cards: state.cards));
   }
 
@@ -148,7 +148,7 @@ class HomeCubit extends Cubit<HomeState> {
     for (int i = 0; i < cards.length; i++) {
       if (cards[i].isMain ?? false) {
         emit(state.copyWith(changeUserIndex: index));
-       return cards[i].number ?? "";
+        return cards[i].number ?? "";
       }
     }
     return "";

@@ -63,10 +63,7 @@ class _CardsPageState extends State<CardsPage> {
                                         Navigator.pop(context);
                                         AppHelpers.showConfirm(context, () {
                                           context.read<HomeCubit>().removeCard(
-                                              docId:
-                                                  state.cards?[index].docId ??
-                                                      "",
-                                              index: index);
+                                              card: state.cards![index]);
                                         });
                                       },
                                       onFavourite: () {
