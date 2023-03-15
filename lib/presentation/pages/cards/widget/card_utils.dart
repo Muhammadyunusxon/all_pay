@@ -92,13 +92,13 @@ class CardUtils {
     if (input == null || input.isEmpty) {
       return Errors.fieldReq;
     }
-
     if (!RegExp(r"^[\d -' ']{19}$").hasMatch(input)) {
       return Errors.numberIsInvalid;
     } else {
       return null;
     }
   }
+
 
   static String? validateEmpty(String? input) {
     if (input == null || input.isEmpty) {

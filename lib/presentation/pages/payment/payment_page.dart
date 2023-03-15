@@ -36,9 +36,10 @@ class _PaymentPageState extends State<PaymentPage> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       context.read<HomeCubit>().getUsers();
     });
+    pageController = PageController();
+
     cardNumber = MaskedTextController(mask: '0000 0000 0000 0000');
     price = TextEditingController();
-    pageController = PageController();
     super.initState();
   }
 
@@ -53,7 +54,9 @@ class _PaymentPageState extends State<PaymentPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).primaryColor,
+      backgroundColor: Theme
+          .of(context)
+          .primaryColor,
       body: Form(
         key: formKey,
         child: SafeArea(
@@ -88,8 +91,9 @@ class _PaymentPageState extends State<PaymentPage> {
                                       borderRadius: BorderRadius.circular(14),
                                       border: Border.all(
                                           color: state.changeUserIndex == index
-                                              ? Theme.of(context)
-                                                  .secondaryHeaderColor
+                                              ? Theme
+                                              .of(context)
+                                              .secondaryHeaderColor
                                               : Style.transparent)),
                                   child: CustomImageNetwork(
                                     height: 50,
@@ -118,13 +122,16 @@ class _PaymentPageState extends State<PaymentPage> {
                 ),
                 Padding(
                   padding:
-                      EdgeInsets.symmetric(horizontal: 48.w, vertical: 3.h),
+                  EdgeInsets.symmetric(horizontal: 48.w, vertical: 3.h),
                   child: BlocBuilder<HomeCubit, HomeState>(
                     buildWhen: (p, s) => p.senderName != s.senderName,
                     builder: (context, state) {
                       return Text(
                         state.senderName,
-                        style: Theme.of(context).textTheme.displaySmall,
+                        style: Theme
+                            .of(context)
+                            .textTheme
+                            .displaySmall,
                       );
                     },
                   ),
@@ -177,7 +184,7 @@ class _PaymentPageState extends State<PaymentPage> {
                               owner: state.cards?[index].owner ?? "",
                               expireData: state.cards?[index].expireDate ?? "",
                               indexGradient:
-                                  state.cards?[index].indexGradient ?? -1,
+                              state.cards?[index].indexGradient ?? -1,
                               indexImage: state.cards?[index].indexImage ?? 1,
                               moneyAmount: state.cards?[index].moneyAmount ?? 0,
                             );
@@ -202,7 +209,7 @@ class _PaymentPageState extends State<PaymentPage> {
                                     Overlay.of(context),
                                     CustomSnackBar.success(
                                       message:
-                                          "${price.text} sent successfully",
+                                      "${price.text} sent successfully",
                                     ),
                                   );
                                 },
