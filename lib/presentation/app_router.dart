@@ -53,11 +53,12 @@ abstract class Routes {
   static PageRoute goAddCard(
       {CardModel? card,
       bool isUpdate = false,
+      bool isOne = false,
       required ValueChanged onSummit}) {
     return MaterialPageRoute(
       builder: (_) => BlocProvider(
         create: (BuildContext context) => CardCubit()..changeCard(card),
-        child: AddCardPage(isUpdate: isUpdate, onSummit: onSummit),
+        child: AddCardPage(isUpdate: isUpdate, onSummit: onSummit, isOne: isOne,),
       ),
     );
   }

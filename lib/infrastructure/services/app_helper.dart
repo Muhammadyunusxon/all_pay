@@ -7,7 +7,10 @@ abstract class AppHelpers {
   AppHelpers._();
 
   static showBottomChange(
-      {required BuildContext context, required VoidCallback onEdit, required VoidCallback onDelete}) {
+      {required BuildContext context,
+      required VoidCallback onEdit,
+      required VoidCallback onDelete,
+      required VoidCallback onFavourite,required bool isFav}) {
     showModalBottomSheet(
         backgroundColor: Style.transparent,
         context: context,
@@ -35,9 +38,15 @@ abstract class AppHelpers {
                 ),
                 18.verticalSpace,
                 ChangeButton(
-                  onTap:onEdit,
+                  onTap: onEdit,
                   title: 'Edit',
                   icon: Icons.edit,
+                ),
+                7.verticalSpace,
+                ChangeButton(
+                  onTap: onFavourite,
+                  title: 'Change Favourite',
+                  icon: isFav? Icons.star: Icons.star_border,
                 ),
                 7.verticalSpace,
                 ChangeButton(
@@ -52,45 +61,40 @@ abstract class AppHelpers {
         });
   }
 
-
-  static showConfirm(BuildContext context,VoidCallback  onSummit){
-    return  showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-      title: Text('Confirm',style: Theme.of(context).textTheme.displayMedium?.copyWith(fontSize: 20),),
-      content: Text(
-        'Would you like to remove?',
-        style: Theme.of(context)
-            .textTheme
-            .displaySmall?.copyWith(fontSize: 18),
+  static showConfirm(BuildContext context, VoidCallback onSummit) {
+    return showDialog(
+      context: context,
+      builder: (_) => AlertDialog(
+        backgroundColor: Theme.of(context).primaryColor,
+        title: Text(
+          'Confirm',
+          style:
+              Theme.of(context).textTheme.displayMedium?.copyWith(fontSize: 20),
+        ),
+        content: Text(
+          'Would you like to remove?',
+          style:
+              Theme.of(context).textTheme.displaySmall?.copyWith(fontSize: 18),
+        ),
+        actions: [
+          TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text(
+                'No',
+                style: Theme.of(context).textTheme.displayMedium,
+              )),
+          TextButton(
+              onPressed: () {
+                Navigator.pop(context);
+              },
+              child: Text(
+                'Yes',
+                style: Theme.of(context).textTheme.displayMedium,
+              )),
+        ],
       ),
-      actions: [
-        TextButton(
-            onPressed: () {
-              Navigator.pop(
-                  context);
-            },
-            child: Text(
-              'No',
-              style: Theme.of(
-                  context)
-                  .textTheme
-                  .displayMedium,
-            )),
-        TextButton(
-            onPressed: () {
-              Navigator.pop(
-                  context);
-            },
-            child: Text(
-              'Yes',
-              style: Theme.of(
-                  context)
-                  .textTheme
-                  .displayMedium,
-            )),
-      ],
-    ),
     );
   }
 }

@@ -37,7 +37,10 @@ class CardCubit extends Cubit<CardState> {
     emit(state.copyWith(indexGradient: -1, indexImage: index));
   }
 
-  createCard({required ValueChanged<CardModel> onSuccess, required bool isUpdate}) async {
+  createCard(
+      {required ValueChanged<CardModel> onSuccess,
+      required bool isUpdate,
+      required bool isOne}) async {
     emit(state.copyWith(isLoading: true));
     final FirebaseFirestore firestore = FirebaseFirestore.instance;
     if (isUpdate) {
@@ -46,10 +49,14 @@ class CardCubit extends Cubit<CardState> {
           .doc(state.card?.docId ?? "")
           .update(state.card!.toJson());
     } else {
+      isOne
+          ? emit(state.copyWith(isMain: true))
+          : emit(state.copyWith(isMain: false));
+
       emit(state.copyWith(
           ownerId: await LocalStore.getDocId(), moneyAmount: 500));
-     var res= await firestore.collection("cards").add(state.card!.toJson());
-     emit(state.copyWith(docId: res.id));
+      var res = await firestore.collection("cards").add(state.card!.toJson());
+      emit(state.copyWith(docId: res.id));
     }
     onSuccess(state.card!);
     emit(state.copyWith(isLoading: false));

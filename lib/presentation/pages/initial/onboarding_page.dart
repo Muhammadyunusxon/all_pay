@@ -26,7 +26,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
             children: [
               120.h.verticalSpace,
               BlocBuilder<AppCubit, AppState>(
-                buildWhen: (e, v) => e.page != v.page,
+                buildWhen: (p, s) => p.page != s.page,
                 builder: (context, state) {
                   return SizedBox(
                     height: 350,
@@ -39,7 +39,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
               Padding(
                 padding: EdgeInsets.symmetric(horizontal: 24.w),
                 child: BlocBuilder<AppCubit, AppState>(
-                  buildWhen: (e, v) => e.page != v.page,
+                  buildWhen: (p, s) => p.page != s.page,
                   builder: (context, state) {
                     return Text(
                       state.page == 1
@@ -59,7 +59,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
               Padding(
                 padding: EdgeInsets.only(top: 16.h, right: 24.w, left: 24.w),
                 child: BlocBuilder<AppCubit, AppState>(
-                  buildWhen: (e, v) => e.page != v.page,
+                  buildWhen: (p, s) => p.page != s.page,
                   builder: (context, state) {
                     return Text(
                       state.page == 1
@@ -75,6 +75,7 @@ class _OnBoardingPageState extends State<OnBoardingPage> {
               ),
               const Spacer(),
               BlocBuilder<AppCubit, AppState>(
+                buildWhen: (p, s) => p.page != s.page,
                 builder: (context, state) {
                   return Row(
                     mainAxisAlignment: MainAxisAlignment.center,

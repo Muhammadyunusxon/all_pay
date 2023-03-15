@@ -10,6 +10,7 @@ class UserModel {
   final String? phone;
   final String? favourite;
   final String? fcmToken;
+  final String? docId;
 
   UserModel(
       {required this.name,
@@ -21,9 +22,11 @@ class UserModel {
       required this.email,
       required this.gender,
       required this.phone,
-      required this.favourite,required this.fcmToken});
+      required this.favourite,
+      required this.fcmToken,
+      this.docId});
 
-  factory UserModel.fromJson(Map<String, dynamic>? data) {
+  factory UserModel.fromJson({Map? data,required String docId}) {
     return UserModel(
       name: data?["name"],
       username: data?["username"],
@@ -34,7 +37,9 @@ class UserModel {
       email: data?["email"],
       gender: data?["gender"],
       phone: data?["phone"],
-      favourite: data?["favourite"], fcmToken: data?["fcmToken"],
+      favourite: data?["favourite"],
+      fcmToken: data?["fcmToken"],
+      docId: docId
     );
   }
 

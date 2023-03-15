@@ -31,6 +31,7 @@ class _CardsPageState extends State<CardsPage> {
               const MyAppBar(title: "Cards"),
               32.verticalSpace,
               BlocBuilder<HomeCubit, HomeState>(
+                buildWhen: (p, s) => p.cards != s.cards,
                 builder: (context, state) {
                   return state.cards?.isEmpty ?? false
                       ? Lottie.network(
@@ -67,7 +68,16 @@ class _CardsPageState extends State<CardsPage> {
                                                       "",
                                               index: index);
                                         });
-                                      });
+                                      },
+                                      onFavourite: () {
+                                        context.read<HomeCubit>().setFavourite(
+                                            index: index,
+                                            onSave: () {
+                                              Navigator.pop(context);
+                                            });
+                                      },
+                                      isFav:
+                                          state.cards?[index].isMain ?? false);
                                 },
                                 child: CardItem(
                                   cardName: state.cards?[index].cardName ?? "",
@@ -92,29 +102,38 @@ class _CardsPageState extends State<CardsPage> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: GestureDetector(
-        onTap: () {
-          Navigator.push(context, Routes.goAddCard(onSummit: (card) {
-            context.read<HomeCubit>().addCard(card);
-            showTopSnackBar(
-              Overlay.of(context),
-              const CustomSnackBar.success(
-                message:
-                    "The card has been added successfully and you have been awarded \$500",
+      floatingActionButton: BlocBuilder<HomeCubit, HomeState>(
+        buildWhen: (p, s) => p.cards != s.cards,
+        builder: (context, state) {
+          return GestureDetector(
+            onTap: () {
+              Navigator.push(
+                  context,
+                  Routes.goAddCard(
+                      isOne: state.cards?.isEmpty ?? true,
+                      onSummit: (card) {
+                        context.read<HomeCubit>().addCard(card);
+                        showTopSnackBar(
+                          Overlay.of(context),
+                          const CustomSnackBar.success(
+                            message:
+                                "The card has been added successfully and you have been awarded \$500",
+                          ),
+                        );
+                      }));
+            },
+            child: Container(
+              padding: EdgeInsets.all(7.r),
+              decoration: BoxDecoration(
+                  gradient: Style.blueGradiant, shape: BoxShape.circle),
+              child: Icon(
+                Icons.add,
+                size: 55.sp,
+                color: Theme.of(context).primaryColor,
               ),
-            );
-          }));
+            ),
+          );
         },
-        child: Container(
-          padding: EdgeInsets.all(7.r),
-          decoration: BoxDecoration(
-              gradient: Style.blueGradiant, shape: BoxShape.circle),
-          child: Icon(
-            Icons.add,
-            size: 55.sp,
-            color: Theme.of(context).primaryColor,
-          ),
-        ),
       ),
     );
   }

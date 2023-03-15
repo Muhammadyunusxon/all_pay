@@ -1,4 +1,5 @@
 import 'package:all_pay/presentation/pages/home/home_page.dart';
+import 'package:all_pay/presentation/pages/payment/payment_page.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +8,7 @@ import 'package:top_snackbar_flutter/custom_snack_bar.dart';
 import 'package:top_snackbar_flutter/top_snack_bar.dart';
 
 import '../../../application/app_cubit/app_cubit.dart';
+import '../../../application/home_cubit/home_cubit.dart';
 import '../../style/style.dart';
 
 class MainPage extends StatefulWidget {
@@ -17,7 +19,12 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
+
   Future<void> getMassage() async {
+    await FirebaseMessaging.instance.requestPermission(
+      alert: true,
+      sound: true,
+    );
     FirebaseMessaging.onMessage.listen((event) {
       showTopSnackBar(
         Overlay.of(context),
@@ -25,6 +32,8 @@ class _MainPageState extends State<MainPage> {
           message: "${event.data["title"] ?? "title"} ${event.data["body"] ?? "body"}",
         ),
       );
+      context.read<HomeCubit>().getCardInfo();
+
     });
   }
 
@@ -46,8 +55,7 @@ class _MainPageState extends State<MainPage> {
               index: state.selected,
               children: [
                 IndexedStackChild(child: const HomePage()),
-                IndexedStackChild(child: const Placeholder()),
-                IndexedStackChild(child: const Placeholder()),
+                IndexedStackChild(child: const PaymentPage()),
                 IndexedStackChild(child: const Placeholder()),
               ],
             ),
@@ -64,7 +72,7 @@ class _MainPageState extends State<MainPage> {
             items: const [
               BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
               BottomNavigationBarItem(
-                  icon: Icon(Icons.sync_alt), label: "MyCard"),
+                  icon: Icon(Icons.sync_alt), label: "Payment"),
               BottomNavigationBarItem(
                   icon: Icon(Icons.person), label: "Profile"),
             ],

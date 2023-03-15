@@ -14,9 +14,10 @@ import 'package:flutter_masked_text2/flutter_masked_text2.dart';
 
 class AddCardPage extends StatefulWidget {
   final bool isUpdate;
+  final bool isOne;
   final ValueChanged<CardModel> onSummit;
 
-  const AddCardPage({Key? key, required this.isUpdate, required this.onSummit})
+  const AddCardPage({Key? key, required this.isUpdate, required this.onSummit, required this.isOne})
       : super(key: key);
 
   @override
@@ -158,7 +159,7 @@ class AddCardPageState extends State<AddCardPage> {
                                     widget.onSummit(v);
                                     Navigator.pop(context);
                                   },
-                                  isUpdate: widget.isUpdate);
+                                  isUpdate: widget.isUpdate, isOne: widget.isOne);
                             }
                           },
                         );
