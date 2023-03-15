@@ -10,7 +10,8 @@ abstract class AppHelpers {
       {required BuildContext context,
       required VoidCallback onEdit,
       required VoidCallback onDelete,
-      required VoidCallback onFavourite,required bool isFav}) {
+      required VoidCallback onFavourite,
+      required bool isFav}) {
     showModalBottomSheet(
         backgroundColor: Style.transparent,
         context: context,
@@ -46,7 +47,7 @@ abstract class AppHelpers {
                 ChangeButton(
                   onTap: onFavourite,
                   title: 'Change Favourite',
-                  icon: isFav? Icons.star: Icons.star_border,
+                  icon: isFav ? Icons.star : Icons.star_border,
                 ),
                 7.verticalSpace,
                 ChangeButton(
@@ -61,7 +62,7 @@ abstract class AppHelpers {
         });
   }
 
-  static showConfirm(BuildContext context, VoidCallback onSummit) {
+  static showConfirm({required BuildContext context, required VoidCallback onSummit}) {
     return showDialog(
       context: context,
       builder: (_) => AlertDialog(
@@ -86,13 +87,15 @@ abstract class AppHelpers {
                 style: Theme.of(context).textTheme.displayMedium,
               )),
           TextButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text(
-                'Yes',
-                style: Theme.of(context).textTheme.displayMedium,
-              )),
+            onPressed: () {
+              onSummit();
+              Navigator.pop(context);
+            },
+            child: Text(
+              'Yes',
+              style: Theme.of(context).textTheme.displayMedium,
+            ),
+          ),
         ],
       ),
     );

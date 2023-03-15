@@ -31,7 +31,6 @@ class _CardsPageState extends State<CardsPage> {
               const MyAppBar(title: "Cards"),
               32.verticalSpace,
               BlocBuilder<HomeCubit, HomeState>(
-                buildWhen: (p, s) => p.cards != s.cards,
                 builder: (context, state) {
                   return state.cards?.isEmpty ?? false
                       ? Lottie.network(
@@ -61,10 +60,15 @@ class _CardsPageState extends State<CardsPage> {
                                       },
                                       onDelete: () async {
                                         Navigator.pop(context);
-                                        AppHelpers.showConfirm(context, () {
-                                          context.read<HomeCubit>().removeCard(
-                                              card: state.cards![index]);
-                                        });
+                                        AppHelpers.showConfirm(
+                                            context: context,
+                                            onSummit: () {
+                                              context
+                                                  .read<HomeCubit>()
+                                                  .removeCard(
+                                                      card:
+                                                          state.cards![index]);
+                                            });
                                       },
                                       onFavourite: () {
                                         context.read<HomeCubit>().setFavourite(
