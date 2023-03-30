@@ -1,5 +1,5 @@
 import 'package:all_pay/presentation/pages/cards/widget/card_item.dart';
-import 'package:all_pay/presentation/pages/cards/widget/card_utils.dart';
+import 'package:all_pay/infrastructure/services/card_utils.dart';
 import 'package:all_pay/presentation/pages/cards/widget/change_card_theme.dart';
 import 'package:all_pay/presentation/utils/my_app_bar.dart';
 import 'package:flutter/material.dart';

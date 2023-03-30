@@ -19,7 +19,6 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-
   Future<void> getMassage() async {
     await FirebaseMessaging.instance.requestPermission(
       alert: true,
@@ -29,11 +28,11 @@ class _MainPageState extends State<MainPage> {
       showTopSnackBar(
         Overlay.of(context),
         CustomSnackBar.success(
-          message: "${event.data["title"] ?? "title"} ${event.data["body"] ?? "body"}",
+          message:
+              "${event.data["title"] ?? "title"} ${event.data["body"] ?? "body"}",
         ),
       );
       context.read<HomeCubit>().getCardInfo();
-
     });
   }
 

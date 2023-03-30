@@ -15,7 +15,7 @@ import 'package:top_snackbar_flutter/top_snack_bar.dart';
 import '../../../infrastructure/services/my_errors.dart';
 import '../../../infrastructure/services/time_deleyed.dart';
 import '../../style/style.dart';
-import '../cards/widget/card_utils.dart';
+import '../../../infrastructure/services/card_utils.dart';
 
 class PaymentPage extends StatefulWidget {
   const PaymentPage({Key? key}) : super(key: key);
